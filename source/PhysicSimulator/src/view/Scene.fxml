@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+   <children>
+      <ImageView fitHeight="900.0" fitWidth="1600.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../img/background.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="mySurface" fitHeight="300.0" fitWidth="3200.0" layoutX="-1600.0" layoutY="600.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0">
+         <image>
+            <Image url="@../img/surface.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="myCylinder" fitHeight="300.0" fitWidth="300.0" layoutX="650.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0">
+         <image>
+            <Image url="@../img/cylinder.png" />
+         </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <Slider fx:id="mySlider" blockIncrement="1.0" layoutX="586.0" layoutY="733.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" prefHeight="33.0" prefWidth="426.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+      <Label fx:id="Label1" layoutX="377.0" layoutY="379.0" text="a: 0.0 m/s²">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="Label2" layoutX="377.0" layoutY="427.0" text="v: 0.0 m/s">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Button fx:id="resetButton" layoutX="1201.0" layoutY="399.0" mnemonicParsing="false" onAction="#resetVar" text="Reset">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

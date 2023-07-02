@@ -25,3 +25,4 @@ replay_pid*
 
 /source/PhysicSimulator/.vscode
 /source/PhysicSimulator/bin
+.vscode/
