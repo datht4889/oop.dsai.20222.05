@@ -67,7 +67,7 @@ public class Controller implements Initializable {
         Label1.setText("a:" + Double.toString(round(cylinder.getAcceleration(), 0)) + "m/s²");
         Label2.setText("v:" + Double.toString(round(cylinder.getVelocity(), 0)) + "m/s");
         
-        cylinder.updateVel(friction);
+        cylinder.update(friction,0.2);
         
         rotate.setRate(cylinder.getVelocity());
         slideTransition1.setRate(cylinder.getVelocity());
@@ -87,6 +87,10 @@ public class Controller implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
                 cylinder.setAcceleration(mySlider.getValue());
+                // myCylinder.setScaleX(1.5);
+                // myCylinder.setScaleY(1.5);
+                // myCylinder.setX(0);
+                
                 setRotate(myCylinder,cylinder.getVelocity());
                 setMovement(mySurface, cylinder.getVelocity());
                 setMovement2(myBackground, cylinder.getVelocity()/20);
