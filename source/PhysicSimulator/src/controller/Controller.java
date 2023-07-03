@@ -66,53 +66,17 @@ public class Controller implements Initializable {
 
         Label1.setText("a:" + Double.toString(round(cylinder.getAcceleration(), 0)) + "m/s²");
         Label2.setText("v:" + Double.toString(round(cylinder.getVelocity(), 0)) + "m/s");
-        if (cylinder.getAcceleration() != 0) {
-            if (cylinder.getVelocity() > 0) {
-                cylinder.setVelocity(cylinder.getVelocity() + (cylinder.getAcceleration() + friction) * 0.2);
-
-            }
-            else {
-                cylinder.setVelocity(cylinder.getVelocity() + (cylinder.getAcceleration() - friction) * 0.2);
-            }
-        }
-        else {
-            if (round(cylinder.getVelocity(), 0) > 0) {
-                cylinder.setVelocity(cylinder.getVelocity() + friction  * 0.2);
-                
-            }
-
-            else if (round(cylinder.getAcceleration(), 0) < 0) {
-                cylinder.setVelocity(cylinder.getVelocity() - friction  * 0.2);
-
-            }
-            else {
-                cylinder.setVelocity(0);;
-            }
-        }
-
-        if (cylinder.getVelocity() > max_v) {
-            cylinder.setVelocity(max_v);
-            mySlider.setValue(0);
-        }
-        else if (cylinder.getVelocity() < min_v) {
-            cylinder.setVelocity(min_v);
-            mySlider.setValue(0);
-        }
-
+        
+        cylinder.updateVel(friction);
         
         rotate.setRate(cylinder.getVelocity());
         slideTransition1.setRate(cylinder.getVelocity());
         slideTransition2.setRate(cylinder.getVelocity()/20);
         
-                  
     });
 
     Timeline accelerationTimeline = new Timeline(frame);
-
-
-
-    
-
+  
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         initCylinder();
@@ -193,9 +157,8 @@ public class Controller implements Initializable {
     }
 
     public void resetVar() {
-        cylinder.setAcceleration(0);;
+        cylinder.setAcceleration(0);
         cylinder.setVelocity(0);
-        mySlider.setValue(0);
     }
 
     public void pause() {

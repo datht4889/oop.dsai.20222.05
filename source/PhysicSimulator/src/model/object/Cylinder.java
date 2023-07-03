@@ -1,5 +1,8 @@
 package model.object;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Cylinder extends MainObject {
     public static final double MAX_RADIUS = 1.0;
     public static final double MIN_RADIUS = 0.2;
@@ -65,7 +68,46 @@ public class Cylinder extends MainObject {
 
 
     public void setGamma(double friction) {
-        this.gamma = friction / (1/2*getMass() * Math.pow(getRadius(),2));
+        this.gamma = friction / (1 / 2 * getMass() * Math.pow(getRadius(), 2));
+    }
+    
+    public void updateVel(double friction) {
+        if (getAcceleration() != 0) {
+            if (getVelocity() > 0) {
+                setVelocity(getVelocity() + (getAcceleration() + friction) * 0.2);
+
+            } else {
+                setVelocity(getVelocity() + (getAcceleration() - friction) * 0.2);
+            }
+        } else {
+            if (round(getVelocity(), 0) > 0) {
+                setVelocity(getVelocity() + friction * 0.2);
+
+            }
+
+            else if (round(getVelocity(), 0) < 0) {
+                setVelocity(getVelocity() - friction * 0.2);
+
+            } else {
+                setVelocity(0);
+                ;
+            }
+        }
+
+        if (getVelocity() > MAX_VEL) {
+            setVelocity(MAX_VEL);
+        } else if (getVelocity() < MIN_VEL) {
+            setVelocity(MIN_VEL);
+        }
+    }
+    
+    public static double round(double value, int places) {
+        if (places < 0)
+            throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
 }

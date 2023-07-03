@@ -3,6 +3,9 @@ package model.object;
 public abstract class MainObject {
     
     public static final double MASS_DEFAULT = 100.0;
+    public static final double MAX_VEL = 50;
+    public static final double MIN_VEL = -50;
+
     private double mass = MASS_DEFAULT;
     private double pos = 0;
     private double accel = 0;
