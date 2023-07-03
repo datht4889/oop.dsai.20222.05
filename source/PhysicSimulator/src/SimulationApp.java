@@ -17,6 +17,7 @@ public class SimulationApp extends Application {
 
         Scene scene = new Scene(root,1600,900);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }

@@ -34,6 +34,9 @@ public class Controller implements Initializable {
     private Label Label2;
     @FXML
     private Button resetButton;
+
+    @FXML
+    private ImageView myBackground;
     
     private static final double SCENE_WIDTH = 1600;
     private static final double SURFACE_WIDTH = SCENE_WIDTH;
@@ -43,6 +46,8 @@ public class Controller implements Initializable {
     double max_v = 50;
     double min_v = -50;
     TranslateTransition slideTransition1 = new TranslateTransition();
+    TranslateTransition slideTransition2 = new TranslateTransition();
+
     RotateTransition rotate = new RotateTransition();
     KeyFrame frame = new KeyFrame(Duration.seconds(0.2), event -> {
         Label1.setText("a:" + Double.toString(round(a, 0)) + "m/s²");
@@ -80,6 +85,7 @@ public class Controller implements Initializable {
         rotate.setRate(v);
             
         slideTransition1.setRate(v);
+        slideTransition2.setRate(v/20);
         
                   
     });
@@ -101,8 +107,9 @@ public class Controller implements Initializable {
                 a = (double) mySlider.getValue();
                 
 
-                setRotate(myCylinder);
-                setRoad(mySurface);
+                setRotate(myCylinder,v);
+                setMovement(mySurface, v);
+                setMovement2(myBackground, v/20);
                 
                 }
                         
@@ -113,22 +120,22 @@ public class Controller implements Initializable {
         });
     }
 
-    public void setRotate(ImageView rec) {
+    public void setRotate(ImageView obj, double rate) {
 
-        rotate.setNode(rec);
+        rotate.setNode(obj);
         rotate.setCycleCount(TranslateTransition.INDEFINITE);
         rotate.setDuration((Duration.millis(5000.0)));
         rotate.setByAngle(360.0);
         rotate.setAutoReverse(false);
         rotate.setInterpolator(Interpolator.LINEAR);
         rotate.setDelay(Duration.seconds(0));
-        rotate.setRate(v);
+        rotate.setRate(rate);
         accelerationTimeline.setCycleCount(Animation.INDEFINITE);
         accelerationTimeline.play();
         rotate.play();
     }
 
-    public void setRoad(ImageView r) {
+    public void setMovement(ImageView r, double rate) {
         slideTransition1.setDuration((Duration.millis(5000.0)));
         slideTransition1.setByX(0);
         slideTransition1.setFromX(SURFACE_WIDTH);
@@ -137,12 +144,27 @@ public class Controller implements Initializable {
         slideTransition1.setOnFinished(event -> {
             // Reset the position of surface1 when it slides off the screen
             slideTransition1.play();
-            
+
         });
         slideTransition1.setInterpolator(Interpolator.LINEAR);
-        slideTransition1.setRate(v);
-        slideTransition1.setNode(mySurface);
-        slideTransition1.play();  
+        slideTransition1.setRate(rate);
+        slideTransition1.play();
+    }
+    
+    public void setMovement2(ImageView r,double rate) {
+        slideTransition2.setDuration((Duration.millis(5000.0)));
+        slideTransition2.setByX(0);
+        slideTransition2.setFromX(SURFACE_WIDTH);
+        slideTransition2.setToX(0);
+        slideTransition2.setNode(r);
+        slideTransition2.setOnFinished(event -> {
+            // Reset the position of surface1 when it slides off the screen
+            slideTransition2.play();
+            
+        });
+        slideTransition2.setInterpolator(Interpolator.LINEAR);
+        slideTransition2.setRate(rate);
+        slideTransition2.play();  
     }
     
     public static double round(double value, int places) {
