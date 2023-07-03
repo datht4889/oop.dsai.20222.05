@@ -43,7 +43,7 @@ public class Controller implements Initializable {
     private static final double SURFACE_WIDTH = SCENE_WIDTH;
     double a = 0;
     double friction = -2;
-    double v = 0.0;
+    double v = 0;
     double max_v = 50;
     double min_v = -50;
     TranslateTransition slideTransition1 = new TranslateTransition();
@@ -51,58 +51,58 @@ public class Controller implements Initializable {
     RotateTransition rotate = new RotateTransition();
     private Cylinder cylinder;
 
+    
     public void initCylinder() {
-    try {
-        cylinder = new Cylinder(50, 1);
-    } catch (Exception e) {
-        // Handle the exception appropriately
+        try {
+            cylinder = new Cylinder(50, 1);
+        } catch (Exception e) {
+            // Handle the exception appropriately
+        }
     }
-}
 
 
 
     KeyFrame frame = new KeyFrame(Duration.seconds(0.2), event -> {
-        a = cylinder.getAcceleration();
-        v = cylinder.getVelocity();
-        Label1.setText("a:" + Double.toString(round(a, 0)) + "m/s²");
-        Label2.setText("v:" + Double.toString(round(v, 0)) + "m/s");
-        if (a != 0) {
-            if (v > 0) {
-                cylinder.setVelocity(v + (a + friction) * 0.2);
+
+        Label1.setText("a:" + Double.toString(round(cylinder.getAcceleration(), 0)) + "m/s²");
+        Label2.setText("v:" + Double.toString(round(cylinder.getVelocity(), 0)) + "m/s");
+        if (cylinder.getAcceleration() != 0) {
+            if (cylinder.getVelocity() > 0) {
+                cylinder.setVelocity(cylinder.getVelocity() + (cylinder.getAcceleration() + friction) * 0.2);
 
             }
             else {
-                cylinder.setVelocity(v - (a + friction) * 0.2);
+                cylinder.setVelocity(cylinder.getVelocity() + (cylinder.getAcceleration() - friction) * 0.2);
             }
         }
         else {
-            if (round(v, 0) > 0) {
-                cylinder.setVelocity(v + friction  * 0.2);
+            if (round(cylinder.getVelocity(), 0) > 0) {
+                cylinder.setVelocity(cylinder.getVelocity() + friction  * 0.2);
                 
             }
 
-            else if (round(v, 0) < 0) {
-                cylinder.setVelocity(v - friction  * 0.2);
+            else if (round(cylinder.getAcceleration(), 0) < 0) {
+                cylinder.setVelocity(cylinder.getVelocity() - friction  * 0.2);
 
             }
             else {
                 cylinder.setVelocity(0);;
             }
         }
-        
-        if (v > max_v) {
+
+        if (cylinder.getVelocity() > max_v) {
             cylinder.setVelocity(max_v);
             mySlider.setValue(0);
         }
-        else if (v < min_v) {
+        else if (cylinder.getVelocity() < min_v) {
             cylinder.setVelocity(min_v);
             mySlider.setValue(0);
         }
 
-        v = cylinder.getVelocity();
-        rotate.setRate(v);
-        slideTransition1.setRate(v);
-        slideTransition2.setRate(v/20);
+        
+        rotate.setRate(cylinder.getVelocity());
+        slideTransition1.setRate(cylinder.getVelocity());
+        slideTransition2.setRate(cylinder.getVelocity()/20);
         
                   
     });
@@ -116,18 +116,16 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         initCylinder();
-        Label1.setText("a:" + Double.toString(round(a, 1)) + "m/s²");
-        Label2.setText("v:" + Double.toString(round(v, 1)) + "m/s");
+        Label1.setText("a:" + Double.toString(round(cylinder.getAcceleration(), 1)) + "m/s²");
+        Label2.setText("v:" + Double.toString(round(cylinder.getVelocity(), 1)) + "m/s");
         mySlider.valueProperty().addListener(new ChangeListener<Number>() {
 
             @Override
             public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
                 cylinder.setAcceleration(mySlider.getValue());
-                
-                v = cylinder.getVelocity();
-                setRotate(myCylinder,v);
-                setMovement(mySurface, v);
-                setMovement2(myBackground, v/20);
+                setRotate(myCylinder,cylinder.getVelocity());
+                setMovement(mySurface, cylinder.getVelocity());
+                setMovement2(myBackground, cylinder.getVelocity()/20);
                 
                 }
                         
@@ -195,8 +193,8 @@ public class Controller implements Initializable {
     }
 
     public void resetVar() {
-        a = 0;
-        v = 0;
+        cylinder.setAcceleration(0);;
+        cylinder.setVelocity(0);
         mySlider.setValue(0);
     }
 
