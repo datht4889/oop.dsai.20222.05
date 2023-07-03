@@ -1,10 +1,13 @@
 package model.object;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public abstract class MainObject {
     
-    public static final double MASS_DEFAULT = 100.0;
-    public static final double MAX_VEL = 50;
-    public static final double MIN_VEL = -50;
+    public static final double MASS_DEFAULT = 100.0; // kg
+    public static final double MAX_VEL = 50; // m/s
+    public static final double MIN_VEL = -50; // m/s
 
     private double mass = MASS_DEFAULT;
     private double pos = 0;
@@ -43,14 +46,32 @@ public abstract class MainObject {
         this.vel = vel;
     }
 
-
-    public double getPos() {
+    public void updateVelocity(double a, double delta_t) {
+        setVelocity(getVelocity() + a * delta_t);
+    }
+    public double getPosition() {
         return pos;
     }
 
-    public void setPos(double pos) {
+    public void setPosition(double pos) {
         this.pos = pos;
     }
 
+    public void updatePosition(double delta_t) {
+        setPosition(getPosition() + getVelocity() * delta_t);
+    }
+
+    public double calAcceleration(double force, double friction) {
+        return (force - friction) / mass;
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0)
+            throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 
 }

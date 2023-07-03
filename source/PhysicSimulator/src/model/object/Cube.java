@@ -25,11 +25,10 @@ public class Cube extends MainObject {
     public void setSize(double size) {
         if (size > MAX_SIZE) {
             this.size = MAX_SIZE;
-        }
-        else if (size < MIN_SIZE) {
+        } else if (size < MIN_SIZE) {
             this.size = MIN_SIZE;
         }
-        
+
     }
 
 }
