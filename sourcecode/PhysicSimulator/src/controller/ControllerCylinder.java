@@ -22,7 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import model.object.Cylinder;
 
-public class Controller implements Initializable {
+public class ControllerCylinder implements Initializable {
     @FXML
     private ImageView myCylinder;
     @FXML
@@ -46,8 +46,8 @@ public class Controller implements Initializable {
     double v = 0;
     double max_v = 50;
     double min_v = -50;
-    TranslateTransition slideTransition1 = new TranslateTransition();
-    TranslateTransition slideTransition2 = new TranslateTransition();
+    TranslateTransition surfaceTransition = new TranslateTransition();
+    TranslateTransition backgroundTransition = new TranslateTransition();
     RotateTransition rotate = new RotateTransition();
     private Cylinder cylinder;
 
@@ -70,8 +70,8 @@ public class Controller implements Initializable {
         cylinder.update(friction,0.2);
         
         rotate.setRate(cylinder.getVelocity());
-        slideTransition1.setRate(cylinder.getVelocity());
-        slideTransition2.setRate(cylinder.getVelocity()/20);
+        surfaceTransition.setRate(cylinder.getVelocity());
+        backgroundTransition.setRate(cylinder.getVelocity()/20);
         
     });
 
@@ -92,8 +92,8 @@ public class Controller implements Initializable {
                 // myCylinder.setX(0);
                 
                 setRotate(myCylinder,cylinder.getVelocity());
-                setMovement(mySurface, cylinder.getVelocity());
-                setMovement2(myBackground, cylinder.getVelocity()/20);
+                setSurfaceMovement(mySurface, cylinder.getVelocity());
+                setBackgroundMovement(myBackground, cylinder.getVelocity()/20);
                 
                 }
                         
@@ -119,36 +119,36 @@ public class Controller implements Initializable {
         rotate.play();
     }
 
-    public void setMovement(ImageView r, double rate) {
-        slideTransition1.setDuration((Duration.millis(5000.0)));
-        slideTransition1.setByX(0);
-        slideTransition1.setFromX(SURFACE_WIDTH);
-        slideTransition1.setToX(0);
-        slideTransition1.setNode(r);
-        slideTransition1.setOnFinished(event -> {
+    public void setSurfaceMovement(ImageView r, double rate) {
+        surfaceTransition.setDuration((Duration.millis(5000.0)));
+        surfaceTransition.setByX(0);
+        surfaceTransition.setFromX(SURFACE_WIDTH);
+        surfaceTransition.setToX(0);
+        surfaceTransition.setNode(r);
+        surfaceTransition.setOnFinished(event -> {
             // Reset the position of surface1 when it slides off the screen
-            slideTransition1.play();
+            surfaceTransition.play();
 
         });
-        slideTransition1.setInterpolator(Interpolator.LINEAR);
-        slideTransition1.setRate(rate);
-        slideTransition1.play();
+        surfaceTransition.setInterpolator(Interpolator.LINEAR);
+        surfaceTransition.setRate(rate);
+        surfaceTransition.play();
     }
     
-    public void setMovement2(ImageView r,double rate) {
-        slideTransition2.setDuration((Duration.millis(5000.0)));
-        slideTransition2.setByX(0);
-        slideTransition2.setFromX(SURFACE_WIDTH);
-        slideTransition2.setToX(0);
-        slideTransition2.setNode(r);
-        slideTransition2.setOnFinished(event -> {
+    public void setBackgroundMovement(ImageView r,double rate) {
+        backgroundTransition.setDuration((Duration.millis(5000.0)));
+        backgroundTransition.setByX(0);
+        backgroundTransition.setFromX(SURFACE_WIDTH);
+        backgroundTransition.setToX(0);
+        backgroundTransition.setNode(r);
+        backgroundTransition.setOnFinished(event -> {
             // Reset the position of surface1 when it slides off the screen
-            slideTransition2.play();
+            backgroundTransition.play();
             
         });
-        slideTransition2.setInterpolator(Interpolator.LINEAR);
-        slideTransition2.setRate(rate);
-        slideTransition2.play();  
+        backgroundTransition.setInterpolator(Interpolator.LINEAR);
+        backgroundTransition.setRate(rate);
+        backgroundTransition.play();  
     }
     
     public static double round(double value, int places) {
@@ -166,22 +166,20 @@ public class Controller implements Initializable {
     }
 
     public void pause() {
-        slideTransition1.pause();
-        slideTransition2.pause();
+        surfaceTransition.pause();
+        backgroundTransition.pause();
         rotate.pause();
         accelerationTimeline.pause();
     }
 
     public void play() {
-        slideTransition1.play();
-        slideTransition2.play();
+        surfaceTransition.play();
+        backgroundTransition.play();
         rotate.play();
         accelerationTimeline.play();
     }
 
     public void close() {
-        // Add code to handle the close button action here
-        // For example, you can use System.exit(0) to terminate the application
         System.exit(0);
     }
 

@@ -12,7 +12,7 @@ public class SimulationApp extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/Scene.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/SceneCylinder.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root,1600,900);

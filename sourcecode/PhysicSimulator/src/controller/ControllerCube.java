@@ -22,7 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import model.surface.Surface;
 
-public class Controller_cube implements Initializable {
+public class ControllerCube implements Initializable {
     @FXML
     private ImageView myCube;
     @FXML
