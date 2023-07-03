@@ -40,10 +40,21 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Button fx:id="resetButton" layoutX="1199.0" layoutY="324.0" mnemonicParsing="false" onAction="#resetVar" text="Reset">
+      <Button fx:id="resetButton" layoutX="1296.0" layoutY="304.0" mnemonicParsing="false" onAction="#resetVar" prefWidth="100.0" text="Reset">
          <font>
             <Font size="25.0" />
          </font>
       </Button>
+      <Button fx:id="pauseButton" layoutX="1296.0" layoutY="356.0" mnemonicParsing="false" onAction="#pause" prefWidth="100.0" text="Pause">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="pauseButton1" layoutX="1296.0" layoutY="252.0" mnemonicParsing="false" onAction="#play" prefWidth="100.0" text="Play">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="closeButton" layoutX="1425.0" layoutY="55.0" mnemonicParsing="false" onAction="#close" prefHeight="20.0" prefWidth="20.0" text="x" />
    </children>
 </AnchorPane>

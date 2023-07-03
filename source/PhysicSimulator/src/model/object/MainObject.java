@@ -40,9 +40,6 @@ public abstract class MainObject {
         this.vel = vel;
     }
 
-    public void updateVelocity(double delta_t) {
-        this.vel += this.accel * delta_t;
-    }
 
     public double getPos() {
         return pos;
@@ -50,10 +47,6 @@ public abstract class MainObject {
 
     public void setPos(double pos) {
         this.pos = pos;
-    }
-
-    public void updatePos(double delta_t) {
-        this.pos += this.vel * delta_t;
     }
 
 

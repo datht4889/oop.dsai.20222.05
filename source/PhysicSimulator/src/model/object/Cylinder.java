@@ -17,10 +17,15 @@ public class Cylinder extends MainObject {
         super(mass);
 
     }
+
     public Cylinder(double mass, double radius) throws Exception {
         super(mass);
+        try{
         setRadius(radius);
-
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
         
     }
     
@@ -46,20 +51,12 @@ public class Cylinder extends MainObject {
         this.angularPos = angularPos;
     }
 
-    public void updateAngularPos(double delta_t) {
-        this.angularPos += angularVel * delta_t;
-    }
-
     public double getAngularVel() {
         return angularVel;
     }
 
     public void setAngularVel(double angularVel) {
         this.angularVel = angularVel;
-    }
-
-    public void updateAngularVel(double delta_t) {
-        this.angularVel += gamma * delta_t;
     }
     
     public double getGamma(){
